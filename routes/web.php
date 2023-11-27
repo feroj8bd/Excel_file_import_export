@@ -17,17 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//route for  index
 Route::get('/student', [StudentController::class, 'index'])->name('student.index');
 
-
+//route for  create
 Route::post('/student-store', [StudentController::class, 'store'])->name('student.store');
 
+//route for  import
 Route::get('/student-import', [StudentController::class, 'import'])->name('student.import');
 
+//route for  SaveImport
 Route::post('/student-import', [StudentController::class, 'SaveImport'])->name('save.import');
 
-
+//route for exportCSV
 Route::get('/student-export', [StudentController::class, 'exportCSV'])->name('file.export');
 
+//route for exportPDf
 Route::get('/student-export-pdf', [StudentController::class, 'exportPDf'])->name('export-pdf.file');

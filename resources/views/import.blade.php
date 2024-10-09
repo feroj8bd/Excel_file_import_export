@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +9,34 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Import</title>
 </head>
+
 <body>
     <div class="container">
         <form action={{ route('save.import') }} method="post" enctype="multipart/form-data">
-        @csrf
-     
-            <a href="{{ route('student.index') }}" class="btn btn-success mt-3">See All Student</a>
+            @csrf
 
-            <a href="{{ route('student.import') }}" class="btn btn-warning mt-3">Import file</a>
+            <div class="mb-3">
+            <a href="{{ route('student.create') }}" class="btn btn-success mt-3">Add Student</a>
 
-            <a href="{{ route('file.export') }}" class="btn btn-primary mt-3">Downlode file</a>
+                <a href="{{ route('student.index') }}" class="btn btn-success mt-3">See All Student</a>
 
-            <a href="{{ route('export-pdf.file') }}" class="btn btn-primary mt-3">Downlode PDF File</a>
+                <a href="{{ route('student.import') }}" class="btn btn-warning mt-3">Import file</a>
 
-        <div class="row">
-            <input type="file" name="file" class="form-control">
-            <button type="submit" class="btn btn-success">Upload </button>
-        </div>
+                <a href="{{ route('file.export') }}" class="btn btn-primary mt-3">Downlode file</a>
+
+                <a href="{{ route('export-pdf.file') }}" class="btn btn-primary mt-3">Downlode PDF File</a>
+
+            </div>
+
+            <div class="row ">
+                <input type="file" name="file" class="form-control">
+                @error('file')
+                    <small class="text-danger">{{$message}} </small>
+                @enderror
+                <button type="submit" class="btn btn-success mt-3">Upload </button>
+            </div>
         </form>
     </div>
 </body>
+
 </html>

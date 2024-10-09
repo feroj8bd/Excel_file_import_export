@@ -18,10 +18,8 @@ class StudentController extends Controller
     //student index function
     public function index()
     {
-        // return view('Fruits.index');
         $students = Student::all();
-        // return 'hi';
-        return view('index', compact("students"));
+        return view('index', compact('students'));
     }
 
     // file import function
@@ -32,55 +30,56 @@ class StudentController extends Controller
 
     public function SaveImport(Request $request)
     {
-        // Check if a file was uploaded
-        if ($request->hasFile('file')) {
-            // Store the uploaded file temporarily
-            $path = $request->file('file')->store('temp-import-file', 'public');
+        // Validate that the file is an Excel or CSV file
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv',
+        ]);
 
-            // Import the file
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('temp-import-file', 'public');
+            // dd(storage_path("app/public/$path"));
+
             Excel::import(new StudentImport, storage_path("app/public/$path"));
 
-            // Return a response
-            return 'Data imported';
+            return redirect()->back()->with('success', 'Data imported successfully');
         } else {
-            return 'No file uploaded.';
+            return redirect()->back()->with('error', 'No file uploaded.');
         }
     }
+
+
 
     // file export function
     public function exportCSV()
     {
-        return CSV::download(new StudentExport, 'student-record.csv');
+        return Excel::download(new StudentExport, 'student-record.csv');
     }
 
     // pdf export function
-    public function exportPDf()
+    public function exportPDF()
     {
         $students = Student::all();
-        $pdf = PDF::loadview('index', compact('students'));
+        $pdf = PDF::loadView('index', compact('students'));
         return $pdf->download('student-list.pdf');
     }
     // student create function
     public function create()
     {
         // return 'hi';
-        return view('welcome');
+        return view('create');
     }
+
 
     // student store function
     public function store(Request $request)
     {
-
-
-        // Validation
         $validatedData = $request->validate([
             'name' => 'required|string|max:60',
             'email' => 'required|string|max:60',
-            'address' => 'nullable|string|max:60',
-
+            'address' => 'nullable|string',
         ]);
-        Student::create($validatedData);
 
-        return redirect()->back()->withSuccess('Data successfully save');
+        Student::create($validatedData);
+        return redirect()->back()->with('success', 'Data successfully saved');
     }
 }

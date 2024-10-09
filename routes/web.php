@@ -22,6 +22,7 @@ Route::get('/student', [StudentController::class, 'index'])->name('student.index
 
 //route for  create
 Route::post('/student-store', [StudentController::class, 'store'])->name('student.store');
+Route::get('/student-create', [StudentController::class, 'create'])->name('student.create');
 
 //route for  import
 Route::get('/student-import', [StudentController::class, 'import'])->name('student.import');

@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 class Student extends Model
 {
     use HasFactory;
-    // import excel file data
-    protected $fillable = ['name', 'email', 'password'];
 
-    //export excel file data
+    protected $fillable = ['name', 'email', 'address'];
+
     public static function getAllStudent()
     {
-        $result = DB::table('students')->select('id', 'name', 'email', 'address')->get()->toArray();
+        // Return array of students
+        return DB::table('students')->select('id', 'name', 'email', 'address')->get()->toArray();
     }
 }

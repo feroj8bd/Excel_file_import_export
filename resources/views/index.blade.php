@@ -13,15 +13,20 @@
 <body>
     <div class="container">
 
-     
+
+        <div class="mb-3">
+            <a href="{{ route('student.create') }}" class="btn btn-success mt-3">Add Student</a>
+
             <a href="{{ route('student.index') }}" class="btn btn-success mt-3">See All Student</a>
 
             <a href="{{ route('student.import') }}" class="btn btn-warning mt-3">Import file</a>
 
             <a href="{{ route('file.export') }}" class="btn btn-primary mt-3">Downlode file</a>
-            
+
             <a href="{{ route('export-pdf.file') }}" class="btn btn-primary mt-3">Downlode PDF File</a>
-        
+
+        </div>
+
         <h4 class="text-center pt-3 mt-5">See All Student</h4>
 
         <table class="table">
@@ -31,7 +36,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Address</th>
-                   
+
                 </tr>
             </thead>
 
